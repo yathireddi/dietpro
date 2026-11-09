@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Database – NutriTrack</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Mobile Sidebar Overlay Backdrop -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Application Sidebar -->
+    <aside class="app-sidebar" id="appSidebar">
+      <div class="sidebar-header">
+        <a href="dashboard.html" class="sidebar-logo">
+          <div class="logo-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+          <span>NutriTrack</span>
+        </a>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close Sidebar">&times;</button>
+      </div>
+
+      <div class="sidebar-nav">
+        <div class="sidebar-label">Navigation</div>
+        <a href="dashboard.html" class="sidebar-link">
+          <i class="bi bi-grid-1x2-fill"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="food.html" class="sidebar-link active">
+          <i class="bi bi-egg-fried"></i>
+          <span>Food Database</span>
+        </a>
+        <a href="add-meal.html" class="sidebar-link">
+          <i class="bi bi-plus-circle"></i>
+          <span>Add Meal</span>
+        </a>
+        <a href="history.html" class="sidebar-link">
+          <i class="bi bi-clock-history"></i>
+          <span>Meal History</span>
+        </a>
+        <a href="recommendations.html" class="sidebar-link">
+          <i class="bi bi-stars"></i>
+          <span>Recommendations</span>
+        </a>
+        <a href="profile.html" class="sidebar-link">
+          <i class="bi bi-person-circle"></i>
+          <span>My Profile</span>
+        </a>
+
+        <div class="sidebar-label" style="margin-top: 1.5rem;">Quick Actions</div>
+        <button class="btn btn-primary btn-sm w-100" onclick="NutriApp.openModal('quickAddMealModal')">
+          <i class="bi bi-plus-lg"></i> Quick Add Meal
+        </button>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar user-avatar-initials">NT</div>
+          <div class="sidebar-user-info">
+            <span class="sidebar-user-name user-display-name">Alex Morgan</span>
+            <span class="sidebar-user-role">Member</span>
+          </div>
+        </div>
+        <button class="sidebar-logout-btn action-logout" title="Sign Out">
+          <i class="bi bi-box-arrow-right"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="app-main">
+      <!-- Topbar Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-menu-btn" id="sidebarToggleBtn" aria-label="Toggle menu">
+            <i class="bi bi-list"></i>
+          </button>
+          <div class="header-title-box">
+            <h1>Food Nutrition Database</h1>
+            <p>Search, filter, and inspect verified nutritional data per 100g.</p>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="header-date-pill">
+            <i class="bi bi-calendar3 text-primary"></i>
+            <span class="current-date-display">Today</span>
+          </div>
+
+          <div class="header-actions">
+            <button class="btn btn-sm btn-primary" onclick="NutriApp.openModal('quickAddMealModal')">
+              <i class="bi bi-plus-lg"></i> Quick Log
+            </button>
+            <a href="profile.html" class="icon-btn" title="Profile">
+              <i class="bi bi-person"></i>
+            </a>
+            <button class="icon-btn action-logout" title="Logout">
+              <i class="bi bi-box-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page Content -->
+      <main class="page-content">
+        <!-- Marker for JS Controller -->
+        <div id="foodPageMarker" style="display: none;"></div>
+
+        <!-- Filter Controls Card -->
+        <div class="card food-controls-card">
+          <div class="food-filter-row">
+            <div class="food-search-box">
+              <i class="bi bi-search"></i>
+              <input type="text" id="foodSearchInput" class="food-search-input" placeholder="Search by food name, category, or prep method...">
+            </div>
+
+            <div class="food-sort-box">
+              <label for="foodSortSelect" class="food-sort-label">Sort By:</label>
+              <select id="foodSortSelect" class="food-sort-select">
+                <option value="name_asc">Name (A – Z)</option>
+                <option value="cal_asc">Calories (Lowest first)</option>
+                <option value="cal_desc">Calories (Highest first)</option>
+                <option value="protein_desc">Protein (High to Low)</option>
+                <option value="carbs_desc">Carbs (High to Low)</option>
+                <option value="fat_desc">Fat (High to Low)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Category Pills Filter Strip -->
+          <div class="category-pills-strip">
+            <button class="category-pill active" data-category="All">All Categories</button>
+            <button class="category-pill" data-category="Fruits"><i class="bi bi-apple"></i> Fruits</button>
+            <button class="category-pill" data-category="Vegetables"><i class="bi bi-tree"></i> Vegetables</button>
+            <button class="category-pill" data-category="Grains"><i class="bi bi-bowl"></i> Grains</button>
+            <button class="category-pill" data-category="Dairy"><i class="bi bi-bucket"></i> Dairy</button>
+            <button class="category-pill" data-category="Protein"><i class="bi bi-egg-fill"></i> Protein</button>
+            <button class="category-pill" data-category="Snacks"><i class="bi bi-capsule"></i> Snacks</button>
+            <button class="category-pill" data-category="Beverages"><i class="bi bi-cup-straw"></i> Beverages</button>
+          </div>
+
+          <div style="margin-top: 1rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted);">
+            <span id="foodResultsCount">Loading food items...</span>
+            <span><i class="bi bi-shield-check text-primary"></i> Nutritional values standardized per 100g</span>
+          </div>
+        </div>
+
+        <!-- Food Grid Container -->
+        <div class="food-grid" id="foodCardsGrid">
+          <!-- Rendered dynamically via js/food.js -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Food Detail Modal -->
+  <div class="modal-overlay" id="foodDetailModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <i id="detailFoodIcon" class="bi bi-egg-fill" style="font-size: 1.5rem; color: var(--primary);"></i>
+          <div>
+            <h3 class="modal-title" id="detailFoodName">Food Details</h3>
+            <span class="badge badge-success" id="detailFoodCategory">Category</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" id="detailFoodBody">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline btn-sm" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sm" id="detailAddMealBtn">
+          <i class="bi bi-plus-lg"></i> Log to My Meal
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add to Meal Modal From Food Card -->
+  <div class="modal-overlay" id="logFoodModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="logFoodTitle"><i class="bi bi-plus-circle text-primary"></i> Log Food Item</h3>
+        <button class="modal-close-btn" data-dismiss="modal">&times;</button>
+      </div>
+      <form id="logFoodModalForm">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="logFoodMealType">Meal Type *</label>
+              <select id="logFoodMealType" class="form-control" required>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch" selected>Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Snacks">Snacks</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="logFoodQuantity">Portion (Grams) *</label>
+              <input type="number" id="logFoodQuantity" class="form-control" min="5" max="1500" value="100" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="logFoodDate">Date *</label>
+            <input type="date" id="logFoodDate" class="form-control" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Calculated Nutrient Breakdown:</label>
+            <div id="logFoodNutrientPreview">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline btn-sm" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">
+            <i class="bi bi-check-lg"></i> Confirm & Log Meal
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Shared Quick Add Meal Modal -->
+  <div class="modal-overlay" id="quickAddMealModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="bi bi-plus-circle text-primary"></i> Quick Log Food</h3>
+        <button class="modal-close-btn" data-dismiss="modal">&times;</button>
+      </div>
+      <form id="quickAddMealForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="quickFoodSelect">Choose Food Item *</label>
+            <select id="quickFoodSelect" class="form-control" required>
+              <option value="">-- Select Food --</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="quickMealType">Meal Type *</label>
+              <select id="quickMealType" class="form-control" required>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Snacks">Snacks</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="quickQuantity">Quantity (grams) *</label>
+              <input type="number" id="quickQuantity" class="form-control" placeholder="100" min="5" max="1500" value="100" required>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="form-label">Instant Nutritional Estimate:</label>
+            <div id="quickNutrientPreview">
+              <span class="text-muted" style="font-size: 0.85rem;">Select food to calculate nutrients.</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline btn-sm" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">
+            <i class="bi bi-check-lg"></i> Save Meal
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/food-data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/food.js"></script>
+</body>
+</html>
+

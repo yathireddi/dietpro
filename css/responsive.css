@@ -1,0 +1,201 @@
+/**
+ * NutriTrack - Responsive Breakpoints & Mobile Optimization
+ */
+
+/* Desktops and Laptops (<= 1200px) */
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  .col-8 { grid-column: span 12; }
+  .col-4 { grid-column: span 12; }
+  .col-7 { grid-column: span 12; }
+  .col-5 { grid-column: span 12; }
+  .col-6 { grid-column: span 12; }
+
+  .macro-cards-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .meal-plan-timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablets (<= 992px) */
+@media (max-width: 992px) {
+  .app-sidebar {
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .app-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-close-btn {
+    display: block;
+  }
+
+  .app-main {
+    margin-left: 0;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .page-content {
+    padding: 1.5rem;
+  }
+
+  /* Auth split view collapses */
+  .auth-wrapper {
+    flex-direction: column;
+  }
+
+  .auth-hero {
+    flex: none;
+    padding: 3rem 2rem;
+  }
+
+  .auth-form-container {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .meals-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .foods-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-summary-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .health-score-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile Phones (<= 768px) */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0.85rem 1rem;
+  }
+
+  .page-content {
+    padding: 1rem;
+  }
+
+  .header-date-pill {
+    display: none;
+  }
+
+  .macro-cards-container {
+    grid-template-columns: 1fr;
+  }
+
+  .calorie-overview-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .calorie-stats-column {
+    width: 100%;
+  }
+
+  .food-filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .food-sort-box {
+    justify-content: space-between;
+  }
+
+  .history-summary-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .history-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .meal-plan-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-card {
+    padding: 1.75rem 1.25rem;
+    box-shadow: none;
+    border: none;
+  }
+
+  .toast-container {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .toast-item {
+    min-width: auto;
+    max-width: 100%;
+  }
+
+  .modal-card {
+    margin: 1rem;
+    max-height: 85vh;
+  }
+
+  .quick-calc-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Small Screens (<= 480px) */
+@media (max-width: 480px) {
+  .food-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .btn {
+    font-size: 0.88rem;
+    padding: 0.55rem 1rem;
+  }
+
+  .circle-progress-wrapper {
+    width: 140px;
+    height: 140px;
+  }
+
+  .circle-progress-val {
+    font-size: 1.5rem;
+  }
+}
+
+/* Overlay Backdrop for Mobile Drawer */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 95;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+

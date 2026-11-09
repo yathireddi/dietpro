@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriTrack – Eat Smart. Live Healthy. | Diet Balancing Web Platform</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    /* Landing Specific Styles */
+    .landing-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1.1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .landing-menu {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .landing-menu a {
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color var(--transition-fast);
+    }
+    .landing-menu a:hover {
+      color: var(--primary);
+    }
+    .hero-section {
+      background: linear-gradient(180deg, #F0FDF4 0%, var(--bg-main) 100%);
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 3.5rem;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--primary-light);
+      border: 1px solid rgba(46, 173, 112, 0.3);
+      color: var(--secondary);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-headline {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-headline span {
+      color: var(--primary);
+      position: relative;
+    }
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+      max-width: 580px;
+    }
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .hero-preview-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .preview-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-main);
+      margin-bottom: 0.75rem;
+      border: 1px solid var(--border-subtle);
+    }
+    .preview-meter-ring {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+    .section-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3.5rem;
+    }
+    .section-tag {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .section-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.75rem;
+    }
+    .feature-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-normal);
+      display: flex;
+      flex-direction: column;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(46, 173, 112, 0.4);
+    }
+    .feature-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--primary-light);
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .step-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 1.75rem;
+      border: 1px solid var(--border-light);
+      position: relative;
+    }
+    .step-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: rgba(46, 173, 112, 0.25);
+      position: absolute;
+      top: 1.25rem;
+      right: 1.5rem;
+      line-height: 1;
+    }
+    .benefits-strip {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+      padding: 4rem 2rem;
+    }
+    .landing-footer {
+      background: #111827;
+      color: #9CA3AF;
+      padding: 4rem 2rem 2rem;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid #1F2937;
+    }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    @media (max-width: 992px) {
+      .hero-container { grid-template-columns: 1fr; text-align: center; }
+      .hero-desc { margin-left: auto; margin-right: auto; }
+      .hero-cta-group { justify-content: center; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .steps-grid { grid-template-columns: 1fr; }
+      .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .landing-menu { display: none; }
+      .hero-headline { font-size: 2.5rem; }
+      .features-grid { grid-template-columns: 1fr; }
+      .footer-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="landing-nav">
+    <a href="index.html" class="sidebar-logo">
+      <div class="logo-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+      <span>NutriTrack</span>
+    </a>
+
+    <div class="landing-menu">
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#benefits">Benefits</a>
+      <a href="login.html">Demo Login</a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <a href="login.html" class="btn btn-outline">Login</a>
+      <a href="register.html" class="btn btn-primary">Get Started Free</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div>
+        <div class="hero-badge">
+          <i class="bi bi-stars"></i> Intelligent Diet Balancing Platform
+        </div>
+        <h1 class="hero-headline">
+          Eat Smart.<br>
+          <span>Live Healthy.</span>
+        </h1>
+        <p class="hero-desc">
+          Take control of your daily nutrition with dynamic calorie calculations, precision macronutrient tracking, categorized food datasets, and rule-based personalized dietary recommendations designed for your personal fitness goals.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="register.html" class="btn btn-lg btn-primary">
+            Start Balancing Now <i class="bi bi-arrow-right"></i>
+          </a>
+          <a href="login.html" class="btn btn-lg btn-outline" id="heroDemoLoginBtn">
+            <i class="bi bi-play-circle"></i> Try Demo Account
+          </a>
+        </div>
+
+        <div style="margin-top: 2rem; display: flex; align-items: center; gap: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
+          <span><i class="bi bi-check-circle-fill text-primary"></i> 100% In-Browser Privacy</span>
+          <span><i class="bi bi-check-circle-fill text-primary"></i> Mifflin-St Jeor Engine</span>
+          <span><i class="bi bi-check-circle-fill text-primary"></i> 30+ Realistic Foods</span>
+        </div>
+      </div>
+
+      <!-- Hero Visual Card -->
+      <div class="hero-preview-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <div style="width: 10px; height: 10px; border-radius: 50%; background: #2EAD70;"></div>
+            <strong style="font-size: 0.95rem;">Daily Nutrition Balance</strong>
+          </div>
+          <span class="badge badge-success">Goal: Weight Loss</span>
+        </div>
+
+        <div class="preview-meter-ring">
+          <div class="circle-progress-wrapper" style="width: 150px; height: 150px;">
+            <svg class="circle-progress-svg" viewBox="0 0 160 160">
+              <circle class="circle-bg" cx="80" cy="80" r="65"></circle>
+              <circle class="circle-progress" cx="80" cy="80" r="65" style="stroke-dasharray: 408.4; stroke-dashoffset: 122;"></circle>
+            </svg>
+            <div class="circle-progress-text">
+              <span class="circle-progress-val" style="font-size: 1.6rem;">480</span>
+              <span class="circle-progress-label">kcal left</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-pill">
+          <span><i class="bi bi-dot text-primary" style="font-size: 1.8rem; vertical-align: middle;"></i> Protein Intake</span>
+          <strong>118g / 142g (83%)</strong>
+        </div>
+        <div class="preview-pill">
+          <span><i class="bi bi-dot" style="font-size: 1.8rem; color: var(--info); vertical-align: middle;"></i> Carbohydrates</span>
+          <strong>165g / 190g (87%)</strong>
+        </div>
+        <div class="preview-pill" style="margin-bottom: 0;">
+          <span><i class="bi bi-dot" style="font-size: 1.8rem; color: var(--accent); vertical-align: middle;"></i> Healthy Fats</span>
+          <strong>42g / 63g (66%)</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section-wrap" id="features">
+    <div class="section-header">
+      <span class="section-tag">Powerful Nutrition Tools</span>
+      <h2 class="section-title">Everything You Need to Balance Your Diet</h2>
+      <p class="section-subtitle">
+        NutriTrack bridges science-backed metabolic equations with effortless daily meal logging to give you actionable clarity on every bite.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon-box"><i class="bi bi-speedometer2"></i></div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem;">Daily Calorie Tracking</h3>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55;">
+          Monitor real-time consumed versus remaining calories with an animated circular progress indicator and Mifflin-St Jeor target calculations.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon-box"><i class="bi bi-pie-chart-fill"></i></div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem;">Food Categories & Database</h3>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55;">
+          Explore over 30+ categorized foods (Fruits, Vegetables, Grains, Dairy, Protein, Snacks, Beverages) with full nutritional specs per 100g.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon-box"><i class="bi bi-lightbulb-fill"></i></div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem;">Personalized Recommendations</h3>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55;">
+          Dynamic rule engine assesses protein gaps, micronutrient deficiencies, and caloric thresholds to provide actionable dietary adjustments.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon-box"><i class="bi bi-calendar-week-fill"></i></div>
+        <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem;">Meal History & Analytics</h3>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55;">
+          Review meal breakdowns across Breakfast, Lunch, Dinner, and Snacks with interactive 7-day weekly Chart.js analytics.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section style="background: #FFFFFF; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);" id="how-it-works">
+    <div class="section-wrap">
+      <div class="section-header">
+        <span class="section-tag">Simple 3-Step Flow</span>
+        <h2 class="section-title">How NutriTrack Works</h2>
+        <p class="section-subtitle">
+          Designed for simplicity and clinical precision, helping you make informed nutritional choices effortlessly.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <span class="step-number">01</span>
+          <div class="feature-icon-box" style="margin-bottom: 1.25rem;"><i class="bi bi-person-badge-fill"></i></div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Configure Profile & Target</h3>
+          <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6;">
+            Input your age, gender, height, weight, activity level, and goal. NutriTrack computes your BMR, BMI, and calibrated maintenance caloric targets.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <span class="step-number">02</span>
+          <div class="feature-icon-box" style="margin-bottom: 1.25rem;"><i class="bi bi-plus-square-fill"></i></div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Log Meals Dynamically</h3>
+          <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6;">
+            Select from the verified food catalog, enter grams consumed, and see real-time recalculation of calories, protein, carbohydrates, and fats.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <span class="step-number">03</span>
+          <div class="feature-icon-box" style="margin-bottom: 1.25rem;"><i class="bi bi-shield-check"></i></div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">Balance & Optimize</h3>
+          <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6;">
+            Receive rule-based recommendations identifying dietary gaps, foods to include or moderate, and sample balanced meal schedules.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="section-wrap" id="benefits">
+    <div class="section-header">
+      <span class="section-tag">Why NutriTrack</span>
+      <h2 class="section-title">Built for Precision & Reliability</h2>
+      <p class="section-subtitle">
+        Everything runs locally in your browser with instant feedback, zero latency, and complete data privacy.
+      </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <i class="bi bi-check-circle-fill text-primary" style="font-size: 1.5rem; margin-top: 0.1rem;"></i>
+        <div>
+          <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.35rem;">Formula Accuracy</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Employs the peer-reviewed Mifflin-St Jeor formula and standardized nutrient ratios for realistic target setting.
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <i class="bi bi-check-circle-fill text-primary" style="font-size: 1.5rem; margin-top: 0.1rem;"></i>
+        <div>
+          <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.35rem;">Zero Backend Dependency</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            100% self-contained frontend MVP utilizing localStorage. No database setup or server spin-up required to test.
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: flex-start;">
+        <i class="bi bi-check-circle-fill text-primary" style="font-size: 1.5rem; margin-top: 0.1rem;"></i>
+        <div>
+          <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.35rem;">REST API Prepared</h4>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Modular JavaScript service layer architected cleanly to connect to Java, Spring Boot, and MySQL when ready.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div class="footer-container">
+      <div>
+        <a href="index.html" class="sidebar-logo" style="color: white; margin-bottom: 1rem;">
+          <div class="logo-icon"><i class="bi bi-heart-pulse-fill"></i></div>
+          <span>NutriTrack</span>
+        </a>
+        <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem;">
+          A modern diet balancing web platform built for academic evaluation, empowering users with data-driven nutrition tracking.
+        </p>
+        <div style="font-size: 0.8rem; color: #6EE7B7;">
+          <i class="bi bi-mortarboard-fill"></i> Third-Year B.Tech Academic Project
+        </div>
+      </div>
+
+      <div>
+        <h4 style="color: white; font-size: 0.95rem; margin-bottom: 1rem;">Navigation</h4>
+        <ul style="display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.9rem;">
+          <li><a href="index.html" style="color: #9CA3AF;">Home</a></li>
+          <li><a href="login.html" style="color: #9CA3AF;">Login</a></li>
+          <li><a href="register.html" style="color: #9CA3AF;">Register</a></li>
+          <li><a href="dashboard.html" style="color: #9CA3AF;">Dashboard</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="color: white; font-size: 0.95rem; margin-bottom: 1rem;">Features</h4>
+        <ul style="display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.9rem;">
+          <li><a href="food.html" style="color: #9CA3AF;">Food Database</a></li>
+          <li><a href="add-meal.html" style="color: #9CA3AF;">Add Meal</a></li>
+          <li><a href="history.html" style="color: #9CA3AF;">Meal History</a></li>
+          <li><a href="recommendations.html" style="color: #9CA3AF;">Recommendations</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="color: white; font-size: 0.95rem; margin-bottom: 1rem;">Academic Notice</h4>
+        <p style="font-size: 0.82rem; line-height: 1.5; color: #9CA3AF;">
+          This application provides informational dietary estimates and rule-based suggestions. It is not intended as medical or clinical advice.
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 NutriTrack Platform. Academic MVP Edition.</div>
+      <div>Crafted with HTML5, CSS3, Vanilla JS & Chart.js</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/food-data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Demo login shortcut
+    document.getElementById('heroDemoLoginBtn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      AuthService.loginAsDemo();
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
+</html>
+
